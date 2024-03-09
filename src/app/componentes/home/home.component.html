@@ -1,0 +1,32 @@
+<p>home works!</p>
+
+
+@for (item of GetListUsuario(); track $index) {
+    <li> ID: {{item.id}} - Nome: {{item.nome}} -- <button (click)="apagar(item.id)">apagar</button></li>
+
+}@empty {
+    <li>Loagind...</li>
+}
+
+
+<h3>Criar</h3>
+
+<label for="">
+    Nome:
+    <input type="text" #nome>
+</label><br>
+<label for="">
+    Email:
+    <input type="text" #email>
+</label><br>
+<label for="">
+    Senha:
+    <input type="text" #senha>
+</label><br>
+
+<button (click)="criar(nome.value, email.value, senha.value)">Criar</button>
+
+
+<h3>Update</h3>
+
+
