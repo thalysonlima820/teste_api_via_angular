@@ -14,7 +14,12 @@ export class HomeComponent implements OnInit {
 
   #ApiService = inject(ApiService);
 
-  public GetListUsuario = this.#ApiService.GetListUsuario
+  //lista
+  public GetListUsuario = this.#ApiService.GetListUsuario;
+
+  //id
+  public GetIdUsuario = this.#ApiService.GetIdUsuario;
+  public SetidUsuarioErro = this.#ApiService.SetidUsuarioErro;
 
   ngOnInit(): void {
       this.#ApiService.HttpListUsuario().subscribe();
@@ -35,4 +40,24 @@ export class HomeComponent implements OnInit {
         next: next => this.#ApiService.HttpListUsuario().subscribe()
       })
   }
+
+
+
+  public Editar( id: number){
+    return this.#ApiService
+    .HttpIdUsuario(id)
+    .subscribe({
+      next: next => this.#ApiService.HttpListUsuario().subscribe()
+    })
+  }
+
+  public Atualizar(id: number, nome: string, email: string, senha:string){
+    return this.#ApiService
+    .HttpAtualizarUsuario( id, nome, email, senha)
+    .subscribe({
+      next: next => this.#ApiService.HttpListUsuario().subscribe()
+    })
+  }
+
+
 }

@@ -2,7 +2,7 @@
 
 
 @for (item of GetListUsuario(); track $index) {
-    <li> ID: {{item.id}} - Nome: {{item.nome}} -- <button (click)="apagar(item.id)">apagar</button></li>
+    <li> ID: {{item.id}} - Nome: {{item.nome}} -- <button (click)="Editar(item.id)" >Editar</button> -- <button (click)="apagar(item.id)">apagar</button></li>
 
 }@empty {
     <li>Loagind...</li>
@@ -28,6 +28,29 @@
 
 
 
+<br>
 
-
+<br>
+@if (GetIdUsuario(); as data) {
+    <h3>Editar usuario {{data.id}}</h3>
+   <form action="">
+        <label >
+                Nome:
+                <input type="text" value="{{data.nome}}" #nome>
+        </label>
+        <br>
+        <label >
+                Email:
+                <input type="text" value="{{data.email}}" #email>
+        </label>
+        <br>
+        <label >
+                Senha:
+                <input type="text" value="{{data.senha}}" #senha>
+        </label>
+        <button type="button"  (click)="Atualizar(data.id, nome.value, email.value, senha.value)"> Atualizar </button>
+   </form>
+}@else {
+    {{SetidUsuarioErro()}}
+}
 

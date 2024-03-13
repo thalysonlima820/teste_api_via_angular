@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Observable, shareReplay, tap } from 'rxjs';
+import { Observable, catchError, shareReplay, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,41 @@ export class ApiService {
     )
   }
 
+  //pesquisar por 1
+
+  #SetidUsuario = signal< any | null>(null);
+  get GetIdUsuario(){
+    return this.#SetidUsuario.asReadonly()
+  };
+
+  #SetIdUsuarioErro = signal< any | null>(null);
+  get SetidUsuarioErro() {
+    return this.#SetIdUsuarioErro.asReadonly()
+  };
+
+  public HttpIdUsuario(id: number): Observable<any> {
+    this.#SetidUsuario.set(null)
+    this.#SetIdUsuarioErro.set(null)
+    return this.#http.get<any>(`${this.#url()}/lista/${id}`).pipe(
+      shareReplay(),
+      tap(res => this.#SetidUsuario.set(res)),
+      catchError((error: HttpErrorResponse) => {
+        this.#SetIdUsuarioErro.set(error.error.mensage);
+        return throwError(() => error)
+      })
+    )
+  }
+
   //adicionar
   public HttpListUsuarioCreat( nome: string, email:string, senha: string): Observable<any> { 
     return this.#http.post<any>(`${this.#url()}/adicionar`, { nome, email, senha }).pipe(
+      shareReplay(),
+    )
+  }
+
+  //atualizar
+  public HttpAtualizarUsuario( id: number, nome: string, email:string, senha: string): Observable<any> { 
+    return this.#http.put<any>(`${this.#url()}/atualiza/${id}`, { nome, email, senha }).pipe(
       shareReplay(),
     )
   }
