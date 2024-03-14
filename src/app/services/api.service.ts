@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable, catchError, shareReplay, tap, throwError } from 'rxjs';
@@ -18,9 +18,10 @@ export class ApiService {
   } 
   //listas
   public HttpListUsuario(): Observable<any[]> {
+    const headers = new HttpHeaders().set('x-vida-full-stack', 'dev')
     
     this.#SetListUsuario.set(null)
-    return this.#http.get<any[]>(`${this.#url()}/lista`).pipe(
+    return this.#http.get<any[]>(`${this.#url()}/lista`, { headers }).pipe(
       shareReplay(),
       tap( res => this.#SetListUsuario.set(res) )
     )
