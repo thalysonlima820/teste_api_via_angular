@@ -10,6 +10,7 @@ export class ApiService {
 
   #http = inject(HttpClient);
   #url = signal('http://191.36.140.8/slim_api/public/v1/usuarios');
+  #url2 = signal('http://191.36.140.8/slim_api/public/v1/usuarios/lista');
 
   //lista
   #SetListUsuario = signal<any[] | null>(null)
@@ -21,7 +22,7 @@ export class ApiService {
     const headers = new HttpHeaders().set('x-vida-full-stack', 'dev')
     
     this.#SetListUsuario.set(null)
-    return this.#http.get<any[]>(`${this.#url()}/lista`, { headers }).pipe(
+    return this.#http.get<any[]>(this.#url2()).pipe(
       shareReplay(),
       tap( res => this.#SetListUsuario.set(res) )
     )
