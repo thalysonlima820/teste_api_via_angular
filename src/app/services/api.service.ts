@@ -9,7 +9,7 @@ import { Observable, catchError, shareReplay, tap, throwError } from 'rxjs';
 export class ApiService {
 
   #http = inject(HttpClient);
-  #url = signal('https://191.36.140.8/slim_api/public/v1/usuarios');
+  #url = signal('http://191.36.140.8/slim_api/public/v1/usuarios');
 
   //lista
   #SetListUsuario = signal<any[] | null>(null)
