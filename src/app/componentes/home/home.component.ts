@@ -14,6 +14,9 @@ export class HomeComponent implements OnInit {
 
   #ApiService = inject(ApiService);
 
+
+
+  
   //lista
   public GetListUsuario = this.#ApiService.GetListUsuario;
 
