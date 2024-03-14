@@ -18,14 +18,15 @@ export class ApiService {
   } 
   //listas
   public HttpListUsuario(): Observable<any[]> {
-    const headers = new HttpHeaders().set('headers', 'dev')
-    
+
     this.#SetListUsuario.set(null)
-    return this.#http.get<any[]>(`${this.#url()}/lista`, { headers }).pipe(
+    return this.#http.get<any[]>(`${this.#url()}/lista`).pipe(
       shareReplay(),
       tap( res => this.#SetListUsuario.set(res) )
     )
   }
+
+  
 
   //pesquisar por 1
 
