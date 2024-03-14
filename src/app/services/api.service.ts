@@ -34,7 +34,7 @@ export class ApiService {
   };
 
   #SetIdUsuarioErro = signal< any | null>(null);
-  get SetidUsuarioErro() {
+  get getIdUsuarioErrp() {
     return this.#SetIdUsuarioErro.asReadonly()
   };
 
@@ -51,7 +51,16 @@ export class ApiService {
     )
   }
 
+
+  
   //adicionar
+
+  //erro
+  #SetUsuarioErro = signal< any | null>(null);
+  get GetUsuarioErro() {
+    return this.#SetUsuarioErro.asReadonly()
+  };
+
   public HttpListUsuarioCreat( nome: string, email:string, senha: string): Observable<any> { 
     return this.#http.post<any>(`${this.#url()}/adicionar`, { nome, email, senha }).pipe(
       shareReplay(),

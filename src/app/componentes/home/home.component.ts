@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   //id
   public GetIdUsuario = this.#ApiService.GetIdUsuario;
-  public SetidUsuarioErro = this.#ApiService.SetidUsuarioErro;
+  public getIdUsuarioErrp = this.#ApiService.getIdUsuarioErrp;
 
   ngOnInit(): void {
       this.#ApiService.HttpListUsuario().subscribe();
